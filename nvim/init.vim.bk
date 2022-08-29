@@ -1,0 +1,108 @@
+" color term
+set t_Co=256
+
+" Vim, not vi
+set nocompatible
+
+" highlight syntax
+syntax on
+
+let g:vimDir = $HOME.'/.config/nvim'
+let g:pluginDir = g:vimDir.'/plugins/plugged'
+
+call plug#begin(g:pluginDir)
+
+  Plug 'vim-airline/vim-airline'
+  Plug 'preservim/nerdtree'
+
+  set rtp+=/usr/local/opt/fzf
+  Plug 'junegunn/fzf.vim'
+  map <c-o> :Buffers<CR>
+  map <c-p> :Files<CR>
+
+  Plug 'easymotion/vim-easymotion'
+
+call plug#end()
+
+let mapleader = "\<Space>"
+
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+inoremap <esc> <nop>
+inoremap jj <esc>
+
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+nnoremap [b :bp<CR>
+nnoremap ]b :bn<CR>
+
+vnoremap // y/<c-r>"<cr>
+
+nnoremap <leader>b :buffers<CR>:buffer<Space>
+
+set hidden
+
+colorscheme peachpuff
+highlight Comment ctermfg=green
+
+set expandtab " 输入Tab字符时,自动替换成空格,受tabstop影响
+set tabstop=2 " 修改Tab字符显示宽度
+set shiftwidth=2 " 自动缩进时,缩进长度为2
+
+" 设置softtabstop有一个好处是可以用Backspace键来一次删除2个空格.
+" softtabstop的值为负数,会使用shiftwidth的值,两者保持一致,方便统一缩进.
+set softtabstop=-1 " 不使用softtabstop
+
+set ai
+set number
+set hlsearch
+set ruler
+
+" 不创建swp文件和备份
+set nobackup
+set nowritebackup
+set noswapfile
+
+"" 设置编码
+" 文件尝试用以下编码打开
+set fileencodings=utf-8,gb18030,big5,euc-jp,euc-kr,latin1
+" Vim 默认 utf-8 编码
+set encoding=utf-8
+
+" Automatically remove trailing spaces
+autocmd BufWritePre * :%s/\s\+$//e
+
+autocmd! bufwritepost init.vim source %
+
+" easymotion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+" file-tree
+map <leader>t :NERDTree<CR>
